@@ -10,7 +10,8 @@ public class ArduinoConnector {
 	private Arduino a;
 
 	public ArduinoConnector() {
-		a = new Arduino(JOptionPane.showInputDialog("Port Description (String):"), Integer.parseInt(JOptionPane.showInputDialog("Baud Rate (int): ")));
+		a = new Arduino(JOptionPane.showInputDialog("Port Description (String):"),
+				Integer.parseInt(JOptionPane.showInputDialog("Baud Rate (int): ")));
 	}
 
 	public ArduinoConnector getInstance() {
