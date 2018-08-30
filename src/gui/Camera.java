@@ -64,6 +64,9 @@ public class Camera {
 			if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
 				Mouse.setGrabbed(false);
 			}
+			if (Mouse.isButtonDown(0) && !Mouse.isGrabbed()) {
+				Mouse.setGrabbed(true);
+			}
 
 			GL11.glLoadIdentity();
 			cam.lookThrough();

@@ -15,7 +15,7 @@ public class Plates extends Animation {
 		ycounter += count;
 		zcounter += count;
 
-		if (xcounter == Start.cubeSize - 1 || xcounter == 0)
+		if ((xcounter == Start.cubeSize - 1 && count > 0) || (xcounter == 0 && count < 0))
 			count *= -1;
 
 		for (int x = 0; x < Start.cubeSize; x++) {
@@ -27,9 +27,11 @@ public class Plates extends Animation {
 
 					if (x == xcounter) {
 						curR = 255;
-					} else if (y == ycounter) {
+					}
+					if (y == ycounter) {
 						curG = 255;
-					} else if (z == zcounter) {
+					}
+					if (z == zcounter) {
 						curB = 255;
 					}
 

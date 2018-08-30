@@ -22,7 +22,7 @@ public class Start {
 	public static final int cubeSize = 8;
 
 	private ArrayList<Animation> animationen = new ArrayList<Animation>();
-	private int currentAnimation = 1;
+	private int currentAnimation = 0;
 
 	public Start() {
 		Camera.startCamera(this);
