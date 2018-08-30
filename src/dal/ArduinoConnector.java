@@ -21,7 +21,13 @@ public class ArduinoConnector {
 	}
 
 	public void sendMessage(String msg) {
-		a.serialWrite(msg);
+		Runnable r = new Runnable() {
+			public void run() {
+				a.serialWrite(msg);
+			}
+		};
+		Thread t = new Thread(r);
+		t.start();
 	}
 
 	public void openCon() {

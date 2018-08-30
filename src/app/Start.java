@@ -43,15 +43,7 @@ public class Start {
 				lastTicked = new Date();
 				clearMap();
 				animationen.get(currentAnimation).tick(map);
-				Runnable r = new Runnable() {
-					public void run() {
-						a.sendMessage(ledsToString());
-						System.out.println("Message send, delay:" + (System.currentTimeMillis() - lastTicked.getTime()));
-					}
-				};
-				Thread t = new Thread(r);
-				t.start();
-				//running = false;
+				a.sendMessage(ledsToString());
 			}
 		}
 		a.closeCon();
