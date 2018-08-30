@@ -26,7 +26,7 @@ public class Start {
 
 	public Start() {
 		Camera.startCamera(this);
-		
+
 		ArduinoConnector a = ArduinoConnector.getInstance();
 		a.openCon();
 		a.startReceivingMessages();
@@ -85,10 +85,20 @@ public class Start {
 		}
 	}
 
-	public SerialLED[][][] getmap() {
-		return map;
+	public Color[][][] getmap() {
+		Color[][][] c = new Color[cubeSize][cubeSize][cubeSize];
+		if(map == null)
+			return null;
+		for (int x = 0; x < cubeSize; x++) {
+			for (int y = 0; y < cubeSize; y++) {
+				for (int z = 0; z < cubeSize; z++) {
+					c[x][y][z] = map[x][y][z].getC();
+				}
+			}
+		}
+		return c;
 	}
-	
+
 	public static void main(String[] args) {
 		new Start();
 	}

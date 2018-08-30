@@ -1,5 +1,7 @@
 package gui;
 
+import java.awt.Color;
+
 import org.lwjgl.LWJGLException;
 import org.lwjgl.Sys;
 import org.lwjgl.input.Keyboard;
@@ -12,9 +14,10 @@ import org.lwjgl.util.glu.GLU;
 import app.Start;
 
 public class Camera {
-	public static void start(Start s) {
+	private static Start s;
+
+	public static void start() {
 		Camera cam = new Camera(0.0f, 0.0f, 0.0f);
-		s.getmap();
 		cam.createWindow();
 		cam.initGL();
 
@@ -29,11 +32,6 @@ public class Camera {
 
 		Mouse.setGrabbed(true);
 		while (!Display.isCloseRequested()) {
-			GL11.glLoadIdentity();
-			cam.lookThrough();
-			cam.renderGL();
-			Display.update();
-
 			time = Sys.getTime();
 			dt = (time - lastTime) / 1000.0f;
 			lastTime = time;
@@ -66,17 +64,24 @@ public class Camera {
 			if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
 				Mouse.setGrabbed(false);
 			}
+
+			GL11.glLoadIdentity();
+			cam.lookThrough();
+			cam.renderGL();
+			Display.update();
 		}
 		cam.cleanUp();
 	}
+
 	public static void startCamera(Start s) {
 		Runnable r = new Runnable() {
 			public void run() {
-				start(s);
+				start();
 			}
 		};
 		Thread t = new Thread(r);
 		t.start();
+		Camera.s = s;
 	}
 
 	private float x = 0;
@@ -159,26 +164,29 @@ public class Camera {
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
 		GL11.glTranslatef(0.0f, 0.0f, -6.0f); // Move Right And Into The Screen
 		int cubeSize = 8;
+		Color[][][] colors = Camera.s.getmap();
 		for (int x = 0; x < cubeSize; x++) {
 			for (int y = 0; y < cubeSize; y++) {
 				for (int z = 0; z < cubeSize; z++) {
-					drawCube((float)x*5, (float)y*5, (float)z*5);
+					drawCube((float) x * 5, (float) y * 5, (float) z * 5,
+							(colors != null) ? colors[x][y][z] : new Color(100, 100, 100));
 				}
 			}
 		}
-		
 	}
 
-	public void drawCube(float x, float y, float z) {
+	public void drawCube(float x, float y, float z, Color color) {
+		if(color.getRed() == 0 && color.getGreen() == 0 && color.getBlue() == 0)
+			return;
 		GL11.glTranslatef(-x, -y, -z);
 		GL11.glBegin(GL11.GL_QUADS); // Start Drawing The Cube
-		GL11.glColor3f(0.0f, 1.0f, 0.0f); // Set The Color To Green
+		GL11.glColor3f((float) color.getRed() / (float) 255, (float) color.getGreen() / (float) 255,
+				(float) color.getBlue() / (float) 255);
 		GL11.glVertex3f(1.0f, 1.0f, -1.0f); // Top Right Of The Quad (Top)
 		GL11.glVertex3f(-1.0f, 1.0f, -1.0f); // Top Left Of The Quad (Top)
 		GL11.glVertex3f(-1.0f, 1.0f, 1.0f); // Bottom Left Of The Quad (Top)
 		GL11.glVertex3f(1.0f, 1.0f, 1.0f); // Bottom Right Of The Quad (Top)
 
-		GL11.glColor3f(1.0f, 0.5f, 0.0f); // Set The Color To Orange
 		GL11.glVertex3f(1.0f, -1.0f, 1.0f); // Top Right Of The Quad (Bottom)
 		GL11.glVertex3f(-1.0f, -1.0f, 1.0f); // Top Left Of The Quad (Bottom)
 		GL11.glVertex3f(-1.0f, -1.0f, -1.0f); // Bottom Left Of The Quad
@@ -186,25 +194,21 @@ public class Camera {
 		GL11.glVertex3f(1.0f, -1.0f, -1.0f); // Bottom Right Of The Quad
 												// (Bottom)
 
-		GL11.glColor3f(1.0f, 0.0f, 0.0f); // Set The Color To Red
 		GL11.glVertex3f(1.0f, 1.0f, 1.0f); // Top Right Of The Quad (Front)
 		GL11.glVertex3f(-1.0f, 1.0f, 1.0f); // Top Left Of The Quad (Front)
 		GL11.glVertex3f(-1.0f, -1.0f, 1.0f); // Bottom Left Of The Quad (Front)
 		GL11.glVertex3f(1.0f, -1.0f, 1.0f); // Bottom Right Of The Quad (Front)
 
-		GL11.glColor3f(1.0f, 1.0f, 0.0f); // Set The Color To Yellow
 		GL11.glVertex3f(1.0f, -1.0f, -1.0f); // Bottom Left Of The Quad (Back)
 		GL11.glVertex3f(-1.0f, -1.0f, -1.0f); // Bottom Right Of The Quad (Back)
 		GL11.glVertex3f(-1.0f, 1.0f, -1.0f); // Top Right Of The Quad (Back)
 		GL11.glVertex3f(1.0f, 1.0f, -1.0f); // Top Left Of The Quad (Back)
 
-		GL11.glColor3f(0.0f, 0.0f, 1.0f); // Set The Color To Blue
 		GL11.glVertex3f(-1.0f, 1.0f, 1.0f); // Top Right Of The Quad (Left)
 		GL11.glVertex3f(-1.0f, 1.0f, -1.0f); // Top Left Of The Quad (Left)
 		GL11.glVertex3f(-1.0f, -1.0f, -1.0f); // Bottom Left Of The Quad (Left)
 		GL11.glVertex3f(-1.0f, -1.0f, 1.0f); // Bottom Right Of The Quad (Left)
 
-		GL11.glColor3f(1.0f, 0.0f, 1.0f); // Set The Color To Violet
 		GL11.glVertex3f(1.0f, 1.0f, -1.0f); // Top Right Of The Quad (Right)
 		GL11.glVertex3f(1.0f, 1.0f, 1.0f); // Top Left Of The Quad (Right)
 		GL11.glVertex3f(1.0f, -1.0f, 1.0f); // Bottom Left Of The Quad (Right)
