@@ -28,9 +28,8 @@ public class Start {
 	private int currentAnimation = 4;
 
 	public Start() {
-		Camera.startCamera(this);
-
 		ArduinoConnector a = ArduinoConnector.getInstance();
+		Camera.startCamera(this);
 		a.openCon();
 		a.startReceivingMessages();
 		animationen.add(new Plates());
