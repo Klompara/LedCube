@@ -14,7 +14,7 @@ public class Start {
 
 	private boolean running = true;
 
-	private long tickrate = 500;
+	private long tickrate = 100;
 	private Date lastTicked;
 
 	private SerialLED[][][] map;
@@ -43,12 +43,15 @@ public class Start {
 				lastTicked = new Date();
 				clearMap();
 				animationen.get(currentAnimation).tick(map);
-				String output = ledsToString();
-				for (int i = 0; i < output.length(); i++) {
-					System.out.println(i + " -> " + (int) output.charAt(i));
-				}
-				// a.sendMessage(ledsToString());
-				running = false;
+				Runnable r = new Runnable() {
+					public void run() {
+						a.sendMessage(ledsToString());
+						System.out.println("Message send, delay:" + (System.currentTimeMillis() - lastTicked.getTime()));
+					}
+				};
+				Thread t = new Thread(r);
+				t.start();
+				//running = false;
 			}
 		}
 		a.closeCon();
@@ -71,7 +74,6 @@ public class Start {
 					counter++;
 				}
 			}
-			
 		}
 		return output;
 	}
