@@ -23,14 +23,12 @@ public class Camera {
 
 		float dx;
 		float dy;
-		float dt;
 
 		float mouseSensitivity = 0.15f;
-		float movementSpeed = 20.0f;
+		float movementSpeed = 0.25f;
 
 		Mouse.setGrabbed(true);
 		while (!Display.isCloseRequested()) {
-			dt = 0.005f;
 
 			dx = Mouse.getDX();
 			dy = Mouse.getDY();
@@ -40,22 +38,22 @@ public class Camera {
 				cam.pitch(dy * mouseSensitivity);
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
-				cam.moveForward(dt * movementSpeed);
+				cam.moveForward(movementSpeed);
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
-				cam.moveRight(dt * movementSpeed);
+				cam.moveRight(movementSpeed);
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
-				cam.moveLeft(dt * movementSpeed);
+				cam.moveLeft(movementSpeed);
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
-				cam.moveBackwards(dt * movementSpeed);
+				cam.moveBackwards(movementSpeed);
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
-				cam.moveUp(dt * movementSpeed);
+				cam.moveUp(movementSpeed);
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
-				cam.moveDown(dt * movementSpeed);
+				cam.moveDown(movementSpeed);
 			}
 			if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
 				Mouse.setGrabbed(false);
@@ -68,6 +66,7 @@ public class Camera {
 			cam.lookThrough();
 			cam.renderGL();
 			Display.update();
+			
 		}
 		cam.cleanUp();
 	}
@@ -222,6 +221,7 @@ public class Camera {
 			for (DisplayMode displayMode : modes) {
 				if (displayMode.getWidth() == 1280 && displayMode.getHeight() == 720) {
 					Display.setDisplayMode(displayMode);
+					Display.setVSyncEnabled(true);
 					Display.setFullscreen(false);
 					Display.setTitle("Led Cube");
 					Display.create();
