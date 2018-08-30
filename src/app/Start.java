@@ -6,6 +6,7 @@ import java.util.Date;
 
 import bll.SerialLED;
 import bll.animation.Animation;
+import bll.animation.Helix;
 import bll.animation.Plates;
 import bll.animation.Rainbow;
 import bll.animation.SineWave;
@@ -24,7 +25,7 @@ public class Start {
 	public static final int cubeSize = 8;
 
 	private ArrayList<Animation> animationen = new ArrayList<Animation>();
-	private int currentAnimation = 3;
+	private int currentAnimation = 4;
 
 	public Start() {
 		Camera.startCamera(this);
@@ -36,6 +37,7 @@ public class Start {
 		animationen.add(new Smiley());
 		animationen.add(new Rainbow());
 		animationen.add(new SineWave());
+		animationen.add(new Helix());
 
 		map = new SerialLED[8][8][8];
 		for (int x = 0; x < cubeSize; x++) {
