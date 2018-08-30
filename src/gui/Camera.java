@@ -110,7 +110,6 @@ public class Camera {
 		GL11.glHint(GL11.GL_PERSPECTIVE_CORRECTION_HINT, GL11.GL_NICEST);
 	}
 
-	// Setters
 	public void yaw(float amount) {
 		yaw += amount;
 	}
