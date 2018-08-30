@@ -66,7 +66,7 @@ public class Camera {
 			cam.lookThrough();
 			cam.renderGL();
 			Display.update();
-			
+
 		}
 		cam.cleanUp();
 	}
@@ -173,7 +173,7 @@ public class Camera {
 	}
 
 	public void drawCube(float x, float y, float z, Color color) {
-		if(color.getRed() == 0 && color.getGreen() == 0 && color.getBlue() == 0)
+		if (color.getRed() == 0 && color.getGreen() == 0 && color.getBlue() == 0)
 			return;
 		GL11.glTranslatef(-x, -y, -z);
 		GL11.glBegin(GL11.GL_QUADS); // Start Drawing The Cube

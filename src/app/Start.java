@@ -91,7 +91,7 @@ public class Start {
 
 	public Color[][][] getmap() {
 		Color[][][] c = new Color[cubeSize][cubeSize][cubeSize];
-		if(map == null)
+		if (map == null)
 			return null;
 		for (int x = 0; x < cubeSize; x++) {
 			for (int y = 0; y < cubeSize; y++) {

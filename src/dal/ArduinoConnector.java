@@ -25,8 +25,8 @@ public class ArduinoConnector {
 		Runnable r = new Runnable() {
 			public void run() {
 				System.out.println("start reading");
-				while(true) {
-					System.out.println("Reading: " + (int)a.serialRead(1).charAt(0));
+				while (true) {
+					System.out.println("Reading: " + (int) a.serialRead(1).charAt(0));
 				}
 			}
 		};

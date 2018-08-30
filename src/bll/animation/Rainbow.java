@@ -19,13 +19,13 @@ public class Rainbow extends Animation {
 			}
 		}
 	}
-	
+
 	private int toRGB(float i) {
-		if(i > 255)
+		if (i > 255)
 			i = 255;
-		if(i < 0)
+		if (i < 0)
 			i = 0;
-		return (int)i;
+		return (int) i;
 	}
 
 }
