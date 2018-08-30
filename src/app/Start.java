@@ -43,9 +43,7 @@ public class Start {
 				lastTicked = new Date();
 				clearMap();
 				animationen.get(currentAnimation).tick(map);
-				for (int z = 0; z < cubeSize; z++) {
-					a.sendMessage(ledsToString(z));
-				}
+				a.sendMessage(ledsToString());
 				running = false;
 			}
 
@@ -53,12 +51,16 @@ public class Start {
 		a.closeCon();
 	}
 
-	private String ledsToString(int ebene) {
+	private String ledsToString() {
 		String output = "";
-		for (int x = 0; x < cubeSize; x++) {
-			for (int y = 0; y < cubeSize; y++) {
-				// Color c = map[x][y][ebene].getC();
-				output = output + x + ";" + y + ";" + ebene + ";";
+		int counter;
+		for (int z = 0; z < Start.cubeSize; z++) {
+			counter = 0;
+			for (int x = 0; x < Start.cubeSize; x++) {
+				for (int y = 0; y < Start.cubeSize; y++) {
+					output = output + "" + z + "" + counter;
+					counter++;
+				}
 			}
 		}
 		return output;
@@ -75,7 +77,7 @@ public class Start {
 	}
 
 	public static void main(String[] args) {
-		new Start();
+		//new Start();
 	}
 
 }
