@@ -18,7 +18,7 @@ public class SineWave extends Animation{
 		
 		for (int x = 0; x < Start.cubeSize; x++) {
 			int y = (int) ((int)3*Math.sin(2*x-counter)) + 3;
-			leds[x][y][5].setC(new Color(255,0,0));
+			leds[x][y][5].setC(new Color(255,0,0)); // d
 		}
 	}
 
