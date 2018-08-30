@@ -43,7 +43,11 @@ public class Start {
 				lastTicked = new Date();
 				clearMap();
 				animationen.get(currentAnimation).tick(map);
-				a.sendMessage(ledsToString());
+				String output = ledsToString();
+				for (int i = 0; i < output.length(); i++) {
+					System.out.println(i + " -> " + (int)output.charAt(i));
+				}
+				// a.sendMessage(ledsToString());
 				running = false;
 			}
 
@@ -56,12 +60,18 @@ public class Start {
 		int counter;
 		for (int z = 0; z < Start.cubeSize; z++) {
 			counter = 0;
+			output = output + "" + (char) z;
 			for (int x = 0; x < Start.cubeSize; x++) {
 				for (int y = 0; y < Start.cubeSize; y++) {
-					output = output + "" + z + "" + counter;
+					Color c = map[x][y][z].getC();
+					output = output + "" + (char) counter;
+					output = output + "" + (char) c.getRed();
+					output = output + "" + (char) c.getGreen();
+					output = output + "" + (char) c.getBlue();
 					counter++;
 				}
 			}
+			output = output + "" + (char) 1000; // trennzeichen
 		}
 		return output;
 	}
