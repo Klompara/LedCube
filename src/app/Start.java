@@ -45,12 +45,11 @@ public class Start {
 				animationen.get(currentAnimation).tick(map);
 				String output = ledsToString();
 				for (int i = 0; i < output.length(); i++) {
-					System.out.println(i + " -> " + (int)output.charAt(i));
+					System.out.println(i + " -> " + (int) output.charAt(i));
 				}
 				// a.sendMessage(ledsToString());
 				running = false;
 			}
-
 		}
 		a.closeCon();
 	}
