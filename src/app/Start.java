@@ -7,6 +7,7 @@ import java.util.Date;
 import bll.SerialLED;
 import bll.animation.Animation;
 import bll.animation.Plates;
+import bll.animation.Rainbow;
 import bll.animation.Smiley;
 import dal.ArduinoConnector;
 import gui.Camera;
@@ -22,7 +23,7 @@ public class Start {
 	public static final int cubeSize = 8;
 
 	private ArrayList<Animation> animationen = new ArrayList<Animation>();
-	private int currentAnimation = 0;
+	private int currentAnimation = 2;
 
 	public Start() {
 		Camera.startCamera(this);
@@ -32,6 +33,7 @@ public class Start {
 		a.startReceivingMessages();
 		animationen.add(new Plates());
 		animationen.add(new Smiley());
+		animationen.add(new Rainbow());
 
 		map = new SerialLED[8][8][8];
 		for (int x = 0; x < cubeSize; x++) {
