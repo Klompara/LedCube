@@ -15,7 +15,7 @@ public class Plates extends Animation {
 		ycounter += count;
 		zcounter += count;
 
-		if (xcounter == Start.cubeSize-1 || xcounter == 0)
+		if (xcounter == Start.cubeSize - 1 || xcounter == 0)
 			count *= -1;
 
 		for (int x = 0; x < Start.cubeSize; x++) {

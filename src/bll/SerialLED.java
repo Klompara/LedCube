@@ -17,5 +17,5 @@ public class SerialLED {
 	public void setC(Color c) {
 		this.c = c;
 	}
-	
+
 }

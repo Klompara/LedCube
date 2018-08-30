@@ -17,8 +17,8 @@ public class Smiley extends Animation {
 
 	public void tick(SerialLED[][][] leds) {
 		counter += i;
-		if((counter == 7 && i > 0) || (counter == 0 && i < 0))
-			i*=-1;
+		if ((counter == 7 && i > 0) || (counter == 0 && i < 0))
+			i *= -1;
 		for (int y = 0; y < Start.cubeSize; y++) {
 			for (int z = 0; z < Start.cubeSize; z++) {
 				leds[counter][y][z].setC(face[y][z]);
