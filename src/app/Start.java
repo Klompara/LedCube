@@ -25,7 +25,7 @@ public class Start {
 	private int currentAnimation = 1;
 
 	public Start() {
-		Camera.startCamera();
+		Camera.startCamera(this);
 		
 		ArduinoConnector a = ArduinoConnector.getInstance();
 		a.openCon();
@@ -85,6 +85,10 @@ public class Start {
 		}
 	}
 
+	public SerialLED[][][] getmap() {
+		return map;
+	}
+	
 	public static void main(String[] args) {
 		new Start();
 	}

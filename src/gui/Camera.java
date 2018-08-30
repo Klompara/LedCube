@@ -9,10 +9,12 @@ import org.lwjgl.opengl.DisplayMode;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.glu.GLU;
 
-public class Camera {
-	public static void startCamera() {
-		Camera cam = new Camera(0.0f, 0.0f, 0.0f);
+import app.Start;
 
+public class Camera {
+	public static void start(Start s) {
+		Camera cam = new Camera(0.0f, 0.0f, 0.0f);
+		s.getmap();
 		cam.createWindow();
 		cam.initGL();
 
@@ -64,10 +66,17 @@ public class Camera {
 			if (Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
 				Mouse.setGrabbed(false);
 			}
-			
 		}
-
 		cam.cleanUp();
+	}
+	public static void startCamera(Start s) {
+		Runnable r = new Runnable() {
+			public void run() {
+				start(s);
+			}
+		};
+		Thread t = new Thread(r);
+		t.start();
 	}
 
 	private float x = 0;
@@ -227,5 +236,4 @@ public class Camera {
 		Display.destroy();
 		System.exit(0);
 	}
-
 }

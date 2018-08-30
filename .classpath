@@ -4,6 +4,17 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="arduino.jar"/>
 	<classpathentry kind="lib" path="jSerialComm-2.2.0.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/LWJGL + PNGdecoder"/>
+	<classpathentry kind="lib" path="jars/lwjgl_util.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="LedCube/natives-win"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="jars/lwjgl.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="LedCube/natives-win"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="jars/PNGDecoder.jar"/>
+	<classpathentry kind="lib" path="jars/slick-util.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
