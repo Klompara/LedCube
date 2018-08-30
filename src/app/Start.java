@@ -59,6 +59,7 @@ public class Start {
 		int counter;
 		for (int z = 0; z < Start.cubeSize; z++) {
 			counter = 0;
+			output = output + "" + (char) 1000; // trennzeichen
 			output = output + "" + (char) z;
 			for (int x = 0; x < Start.cubeSize; x++) {
 				for (int y = 0; y < Start.cubeSize; y++) {
@@ -70,7 +71,7 @@ public class Start {
 					counter++;
 				}
 			}
-			output = output + "" + (char) 1000; // trennzeichen
+			
 		}
 		return output;
 	}
