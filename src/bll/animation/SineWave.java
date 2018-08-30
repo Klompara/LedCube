@@ -13,12 +13,10 @@ public class SineWave extends Animation{
 	public void tick(SerialLED[][][] leds) {
 		
 		counter += i;
-		if ((counter == 7 && i > 0) || (counter == 0 && i < 0))
-			i *= -1;
 		
 		for (int x = 0; x < Start.cubeSize; x++) {
 			int y = (int) ((int)3*Math.sin(2*x-counter)) + 3;
-			leds[x][y][5].setC(new Color(255,0,0)); // d
+			leds[x][y][5].setC(new Color(255,0,0));
 		}
 	}
 
