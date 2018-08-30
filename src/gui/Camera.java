@@ -24,17 +24,13 @@ public class Camera {
 		float dx;
 		float dy;
 		float dt;
-		float time;
-		float lastTime = 0.0f;
 
 		float mouseSensitivity = 0.15f;
 		float movementSpeed = 20.0f;
 
 		Mouse.setGrabbed(true);
 		while (!Display.isCloseRequested()) {
-			time = Sys.getTime();
-			dt = (time - lastTime) / 1000.0f;
-			lastTime = time;
+			dt = 0.005f;
 
 			dx = Mouse.getDX();
 			dy = Mouse.getDY();
