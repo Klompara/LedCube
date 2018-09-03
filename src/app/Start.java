@@ -25,7 +25,7 @@ public class Start {
 	public static final int cubeSize = 8;
 
 	private ArrayList<Animation> animationen = new ArrayList<Animation>();
-	private int currentAnimation = 4;
+	private int currentAnimation = 2;
 
 	public Start() {
 		ArduinoConnector a = ArduinoConnector.getInstance();
@@ -64,20 +64,38 @@ public class Start {
 		int counter;
 		for (int z = 0; z < Start.cubeSize; z++) {
 			counter = 0;
-			output = output + "" + (char) 255; // trennzeichen
-			output = output + "" + (char) z;
+			output = addCharToString(output, 254); // anfang
+			System.out.println(output);
+			output = addCharToString(output, z); // nach anfang 1x ebene
 			for (int x = 0; x < Start.cubeSize; x++) {
 				for (int y = 0; y < Start.cubeSize; y++) {
 					Color c = map[x][y][z].getC();
-					output = output + "" + (char) counter;
-					output = output + "" + (char) ((c.getRed() == 255) ? 254 : c.getRed());
-					output = output + "" + (char) ((c.getGreen() == 255) ? 254 : c.getGreen());
-					output = output + "" + (char) ((c.getBlue() == 255) ? 254 : c.getBlue());
+					output = addCharToString(output, new int[] { counter, trimColor(c.getRed()), trimColor(c.getGreen()),
+							trimColor(c.getBlue()) }); // (id (0-63) + rgb
+														// (0-253)) * 64 mal
 					counter++;
 				}
 			}
+			output = addCharToString(output, 255); // ende
 		}
-		return output;
+		return output; // [254 ebene [(id rgb)*64] 255] * 8
+	}
+
+	private int trimColor(int c) {
+		if (c >= 254)
+			c = 253;
+		return c;
+	}
+
+	private String addCharToString(String o, int c) {
+		o = o + "" + (char) +c;
+		return o;
+	}
+
+	private String addCharToString(String o, int[] c) {
+		for (int i : c)
+			o = addCharToString(o, i);
+		return o;
 	}
 
 	private void clearMap() {

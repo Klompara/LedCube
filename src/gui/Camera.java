@@ -16,8 +16,21 @@ import app.Start;
 public class Camera {
 	private static Start s;
 
+	private float x = 0;
+	private float y = 0;
+	private float z = 0;
+
+	private float yaw = 0;
+	private float pitch = 0;
+
+	public Camera(float x, float y, float z) {
+		this.x = x;
+		this.y = y;
+		this.z = z;
+	}
+
 	public static void start() {
-		Camera cam = new Camera(0.0f, 0.0f, 0.0f);
+		Camera cam = new Camera(18f, 18f, -50f);
 		cam.createWindow();
 		cam.initGL();
 
@@ -27,9 +40,8 @@ public class Camera {
 		float mouseSensitivity = 0.15f;
 		float movementSpeed = 0.25f;
 
-		Mouse.setGrabbed(true);
+		// Mouse.setGrabbed(true);
 		while (!Display.isCloseRequested()) {
-
 			dx = Mouse.getDX();
 			dy = Mouse.getDY();
 
@@ -66,31 +78,8 @@ public class Camera {
 			cam.lookThrough();
 			cam.renderGL();
 			Display.update();
-
 		}
 		cam.cleanUp();
-	}
-
-	public static void startCamera(Start s) {
-		Runnable r = new Runnable() {
-			public void run() {
-				start();
-			}
-		};
-		Thread t = new Thread(r);
-		t.start();
-		Camera.s = s;
-	}
-
-	private float x = 0;
-	private float y = 0;
-	private float z = 0;
-
-	private float yaw = 0;
-	private float pitch = 0;
-
-	public Camera(float x, float y, float z) {
-		move(x, y, z);
 	}
 
 	private void initGL() {
@@ -115,12 +104,6 @@ public class Camera {
 
 	public void pitch(float amount) {
 		pitch -= amount;
-	}
-
-	public void move(float x, float y, float z) {
-		this.x = x;
-		this.y = y;
-		this.z = z;
 	}
 
 	public void moveForward(float distance) {
@@ -159,7 +142,7 @@ public class Camera {
 
 	public void renderGL() {
 		GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-		GL11.glTranslatef(0.0f, 0.0f, -6.0f); // Move Right And Into The Screen
+		GL11.glTranslatef(0.0f, 0.0f, -6.0f);
 		int cubeSize = 8;
 		Color[][][] colors = Camera.s.getmap();
 		for (int x = 0; x < cubeSize; x++) {
@@ -176,58 +159,44 @@ public class Camera {
 		if (color.getRed() == 0 && color.getGreen() == 0 && color.getBlue() == 0)
 			return;
 		GL11.glTranslatef(-x, -y, -z);
-		GL11.glBegin(GL11.GL_QUADS); // Start Drawing The Cube
+		GL11.glBegin(GL11.GL_QUADS);
 		GL11.glColor3f((float) color.getRed() / (float) 255, (float) color.getGreen() / (float) 255,
 				(float) color.getBlue() / (float) 255);
-		GL11.glVertex3f(1.0f, 1.0f, -1.0f); // Top Right Of The Quad (Top)
-		GL11.glVertex3f(-1.0f, 1.0f, -1.0f); // Top Left Of The Quad (Top)
-		GL11.glVertex3f(-1.0f, 1.0f, 1.0f); // Bottom Left Of The Quad (Top)
-		GL11.glVertex3f(1.0f, 1.0f, 1.0f); // Bottom Right Of The Quad (Top)
-
-		GL11.glVertex3f(1.0f, -1.0f, 1.0f); // Top Right Of The Quad (Bottom)
-		GL11.glVertex3f(-1.0f, -1.0f, 1.0f); // Top Left Of The Quad (Bottom)
-		GL11.glVertex3f(-1.0f, -1.0f, -1.0f); // Bottom Left Of The Quad
-												// (Bottom)
-		GL11.glVertex3f(1.0f, -1.0f, -1.0f); // Bottom Right Of The Quad
-												// (Bottom)
-
-		GL11.glVertex3f(1.0f, 1.0f, 1.0f); // Top Right Of The Quad (Front)
-		GL11.glVertex3f(-1.0f, 1.0f, 1.0f); // Top Left Of The Quad (Front)
-		GL11.glVertex3f(-1.0f, -1.0f, 1.0f); // Bottom Left Of The Quad (Front)
-		GL11.glVertex3f(1.0f, -1.0f, 1.0f); // Bottom Right Of The Quad (Front)
-
-		GL11.glVertex3f(1.0f, -1.0f, -1.0f); // Bottom Left Of The Quad (Back)
-		GL11.glVertex3f(-1.0f, -1.0f, -1.0f); // Bottom Right Of The Quad (Back)
-		GL11.glVertex3f(-1.0f, 1.0f, -1.0f); // Top Right Of The Quad (Back)
-		GL11.glVertex3f(1.0f, 1.0f, -1.0f); // Top Left Of The Quad (Back)
-
-		GL11.glVertex3f(-1.0f, 1.0f, 1.0f); // Top Right Of The Quad (Left)
-		GL11.glVertex3f(-1.0f, 1.0f, -1.0f); // Top Left Of The Quad (Left)
-		GL11.glVertex3f(-1.0f, -1.0f, -1.0f); // Bottom Left Of The Quad (Left)
-		GL11.glVertex3f(-1.0f, -1.0f, 1.0f); // Bottom Right Of The Quad (Left)
-
-		GL11.glVertex3f(1.0f, 1.0f, -1.0f); // Top Right Of The Quad (Right)
-		GL11.glVertex3f(1.0f, 1.0f, 1.0f); // Top Left Of The Quad (Right)
-		GL11.glVertex3f(1.0f, -1.0f, 1.0f); // Bottom Left Of The Quad (Right)
-		GL11.glVertex3f(1.0f, -1.0f, -1.0f); // Bottom Right Of The Quad (Right)
+		GL11.glVertex3f(1.0f, 1.0f, -1.0f);
+		GL11.glVertex3f(-1.0f, 1.0f, -1.0f);
+		GL11.glVertex3f(-1.0f, 1.0f, 1.0f);
+		GL11.glVertex3f(1.0f, 1.0f, 1.0f);
+		GL11.glVertex3f(1.0f, -1.0f, 1.0f);
+		GL11.glVertex3f(-1.0f, -1.0f, 1.0f);
+		GL11.glVertex3f(-1.0f, -1.0f, -1.0f);
+		GL11.glVertex3f(1.0f, -1.0f, -1.0f);
+		GL11.glVertex3f(1.0f, 1.0f, 1.0f);
+		GL11.glVertex3f(-1.0f, 1.0f, 1.0f);
+		GL11.glVertex3f(-1.0f, -1.0f, 1.0f);
+		GL11.glVertex3f(1.0f, -1.0f, 1.0f);
+		GL11.glVertex3f(1.0f, -1.0f, -1.0f);
+		GL11.glVertex3f(-1.0f, -1.0f, -1.0f);
+		GL11.glVertex3f(-1.0f, 1.0f, -1.0f);
+		GL11.glVertex3f(1.0f, 1.0f, -1.0f);
+		GL11.glVertex3f(-1.0f, 1.0f, 1.0f);
+		GL11.glVertex3f(-1.0f, 1.0f, -1.0f);
+		GL11.glVertex3f(-1.0f, -1.0f, -1.0f);
+		GL11.glVertex3f(-1.0f, -1.0f, 1.0f);
+		GL11.glVertex3f(1.0f, 1.0f, -1.0f);
+		GL11.glVertex3f(1.0f, 1.0f, 1.0f);
+		GL11.glVertex3f(1.0f, -1.0f, 1.0f);
+		GL11.glVertex3f(1.0f, -1.0f, -1.0f);
 		GL11.glEnd();
 		GL11.glTranslatef(x, y, z);
 	}
 
 	public void createWindow() {
 		try {
-			DisplayMode[] modes = Display.getAvailableDisplayModes();
-
-			for (DisplayMode displayMode : modes) {
-				if (displayMode.getWidth() == 1280 && displayMode.getHeight() == 720) {
-					Display.setDisplayMode(displayMode);
-					Display.setVSyncEnabled(true);
-					Display.setFullscreen(false);
-					Display.setTitle("Led Cube");
-					Display.create();
-					break;
-				}
-			}
+			Display.setDisplayMode(new DisplayMode(1280, 720));
+			Display.setVSyncEnabled(true);
+			Display.setFullscreen(false);
+			Display.setTitle("Led Cube");
+			Display.create();
 		} catch (LWJGLException e) {
 			Sys.alert("Error", "Initialization failed!\n\n" + e.getMessage());
 			System.exit(0);
@@ -237,5 +206,16 @@ public class Camera {
 	public void cleanUp() {
 		Display.destroy();
 		System.exit(0);
+	}
+
+	public static void startCamera(Start s) {
+		Runnable r = new Runnable() {
+			public void run() {
+				start();
+			}
+		};
+		Thread t = new Thread(r);
+		t.start();
+		Camera.s = s;
 	}
 }
