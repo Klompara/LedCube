@@ -31,7 +31,7 @@ public class Start {
 		ArduinoConnector a = ArduinoConnector.getInstance();
 		Camera.startCamera(this);
 		a.openCon();
-		a.startReceivingMessages();
+		// a.startReceivingMessages();
 		animationen.add(new Plates());
 		animationen.add(new Smiley());
 		animationen.add(new Rainbow());
@@ -65,14 +65,19 @@ public class Start {
 		for (int z = 0; z < Start.cubeSize; z++) {
 			counter = 0;
 			output = addCharToString(output, 254); // anfang
-			System.out.println(output);
 			output = addCharToString(output, z); // nach anfang 1x ebene
 			for (int x = 0; x < Start.cubeSize; x++) {
 				for (int y = 0; y < Start.cubeSize; y++) {
 					Color c = map[x][y][z].getC();
-					output = addCharToString(output, new int[] { counter, trimColor(c.getRed()), trimColor(c.getGreen()),
-							trimColor(c.getBlue()) }); // (id (0-63) + rgb
-														// (0-253)) * 64 mal
+					output = addCharToString(output, new int[] { counter, trimColor(c.getRed()),
+							trimColor(c.getGreen()), trimColor(c.getBlue()) }); // (id
+																				// (0-63)
+																				// +
+																				// rgb
+																				// (0-253))
+																				// *
+																				// 64
+																				// mal
 					counter++;
 				}
 			}
