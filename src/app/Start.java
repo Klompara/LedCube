@@ -70,14 +70,7 @@ public class Start {
 				for (int y = 0; y < Start.cubeSize; y++) {
 					Color c = map[x][y][z].getC();
 					output = addCharToString(output, new int[] { counter, trimColor(c.getRed()),
-							trimColor(c.getGreen()), trimColor(c.getBlue()) }); // (id
-																				// (0-63)
-																				// +
-																				// rgb
-																				// (0-253))
-																				// *
-																				// 64
-																				// mal
+							trimColor(c.getGreen()), trimColor(c.getBlue()) });
 					counter++;
 				}
 			}
