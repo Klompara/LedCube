@@ -83,7 +83,7 @@ public class Start {
 			}
 			output = addCharToString(output, 255); // ende
 		}
-		return output; // [254 ebene [(id rgb)*64] 255] * 8
+		return output; // [254 ebene [id rgb]*64 255] * 8
 	}
 
 	private int trimColor(int c) {
